@@ -3,7 +3,8 @@ CfhighlanderTemplate do
   Description "redis - #{component_version}"
 
   DependsOn 'lib-ec2@0.1.0'
-
+  DependsOn 'lib-iam'
+  
   Parameters do
     
     ComponentParam 'EnvironmentName', 'dev', isGlobal: true
@@ -48,6 +49,10 @@ CfhighlanderTemplate do
     ComponentParam 'UseOnlineResharding', 'false', allowedValues: ['false', 'true']
     ComponentParam 'MultiAZEnabled', 'false', allowedValues: ['false', 'true']
     
+    ComponentParam 'AutoScalingEnabled', 'false', allowedValues: ['false', 'true']
+    ComponentParam 'ScalingMin', 1
+    ComponentParam 'ScalingMax', 10 # can be a `shard` unit but can be a `replica` unit as well, that is why does not use `allowedValues: []` 
+
   end
 
 end
